@@ -40,10 +40,10 @@ window.initGame = function (dotNetObject) {
   });
 
   const startGame = function (cheeseType) {
+    console.log("start game button click", gameReady);
     if (!gameReady) {
       return
     }
-    console.log("start game button click");
     const overlay = document.querySelector(".splash-overlay");
     if (overlay.parentNode) {
       overlay.parentNode.removeChild(overlay);
@@ -104,6 +104,7 @@ window.initGame = function (dotNetObject) {
   var currentSwipeStopX = 0;
   var currentSwipeStopY = 0;
   var lastPos = mousePos;
+  console.log("Setting up canvas events...");
   canvas.addEventListener("mousedown", function (e) {
     sequence += 3;
     swiping = true;
