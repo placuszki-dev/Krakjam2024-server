@@ -35,8 +35,8 @@
     {
         var dataPacket = new DataPacket
         {
-            PlayerId = SessionService.PlayerId,
-            PhoneColor = SessionService.PhoneColor,
+            PlayerId = SessionService.getPlayerId(),
+            PhoneColor = SessionService.getPhoneColor(),
             X = _x,
             Y = _y,
         };
@@ -63,7 +63,25 @@
     [JSInvokable]
     public string getPhoneColor()
     {
-        return SessionService.PhoneColor;
+        return SessionService.getPhoneColor();
+    }
+
+    [JSInvokable]
+    public void setPhoneColor(string color)
+    {
+	SessionService.setPhoneColor(color);
+    }
+
+    [JSInvokable]
+    public string getPlayerId()
+    {
+        return SessionService.getPlayerId();
+    }
+
+    [JSInvokable]
+    public void setPlayerId(string playerid)
+    {
+	SessionService.setPlayerId(playerid);
     }
 
     [JSInvokable]
@@ -74,14 +92,12 @@
         
         var dataPacket = new DataPacket
         {
-            PlayerId = SessionService.PlayerId,
-            PhoneColor = SessionService.PhoneColor,
+            PlayerId = SessionService.getPlayerId(),
+            PhoneColor = SessionService.getPhoneColor(),
             X = sendX,
             Y = sendY,
         };
         Console.WriteLine($"x={sendX}, y={sendY}");
         GameplayService.SendUpdateToClients(dataPacket);
     }
-
-
 }

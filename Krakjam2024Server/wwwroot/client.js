@@ -29,17 +29,39 @@ window.initGame = function (dotNetObject) {
 	gameDiv.appendChild(canvas);
 
 	const ctx = canvas.getContext("2d");
-	ctx.rect(10, 20, 150, 100);
-	ctx.fill();
-
 	ctx.strokeStyle = "#222222";
 	ctx.lineWith = 2;
 
-	dotNetObject.invokeMethodAsync('getPhoneColor')
-		.then(data => {
-			console.log("a", data)
-			document.body.style.backgroundColor = data;
-		});
+	const phoneColor = localStorage.getItem("phoneColor");
+	if (!phoneColor) {
+		dotNetObject.invokeMethodAsync('getPhoneColor')
+			.then(data => {
+				console.log("a", data)
+				const phoneColor = localStorage.setItem("phoneColor", data);
+				document.body.style.backgroundColor = data;
+			});
+	} else {
+		document.body.style.backgroundColor = phoneColor;
+		dotNetObject.invokeMethodAsync('setPhoneColor', phoneColor)
+			.then(data => {
+				console.log("a", data)
+			});
+	}
+
+	const playerId = localStorage.getItem("playerid");
+	if (!playerId) {
+		dotNetObject.invokeMethodAsync('getPlayerId')
+			.then(data => {
+				console.log("b", data);
+				localStorage.setItem("playerid", data);
+			});
+	} else {
+		dotNetObject.invokeMethodAsync('setPlayerId', playerId)
+			.then(data => {
+				console.log("b", data)
+			});
+	}
+
 
 	var swiping = false;
 	var mousePos = { x:0, y:0 };
