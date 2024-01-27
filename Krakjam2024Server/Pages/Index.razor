@@ -3,6 +3,7 @@
 @inject GameplayService GameplayService
 @inject SessionService SessionService
 @inject IJSRuntime JSRuntime
+@implements IDisposable
 
 <div id="game">
 </div>
@@ -13,6 +14,8 @@
 @code {
     private float _x = 0f;
     private float _y = 5;
+
+    DotNetObjectReference<Index> ObjectReference;
 
     public Index()
     {
@@ -56,8 +59,8 @@
         if (firstRender)
         {
             // See warning about memory above in the article
-            var dotNetReference = DotNetObjectReference.Create(this);
-            JSRuntime.InvokeVoidAsync("window.initGame", dotNetReference);
+            ObjectReference = DotNetObjectReference.Create(this);
+            JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
         }
     }
 
@@ -90,7 +93,7 @@
     {
         float sendX = x;
         float sendY = -y;
-        
+
         var dataPacket = new DataPacket
         {
             PlayerId = SessionService.getPlayerId(),
@@ -100,5 +103,16 @@
         };
         Console.WriteLine($"x={sendX}, y={sendY}");
         GameplayService.SendUpdateToClients(dataPacket);
+    }
+
+    public void Dispose()
+    {
+      GC.SuppressFinalize(this);
+
+      if (ObjectReference != null)
+      {
+        //Now dispose our object reference so our component can be garbage collected
+        ObjectReference.Dispose();
+      }
     }
 }
