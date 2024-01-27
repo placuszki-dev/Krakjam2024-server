@@ -65,11 +65,13 @@
     {
         var dataPacket = new DataPacket
         {
+            PlayerId = SessionService.PlayerId,
+            PhoneColor = SessionService.PhoneColor,
             X = x,
-            Y = y,
+            Y = -y,
         };
         Console.WriteLine("xDDDD");
-        // GameplayService.SendUpdateToClients(dataPacket);
+        GameplayService.SendUpdateToClients(dataPacket);
     }
 
 
