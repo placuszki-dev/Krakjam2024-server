@@ -1,3 +1,23 @@
+window.onresize = function () {
+	console.log("resize");
+
+	const canvas = document.querySelector("canvas");
+
+	canvas.width  = window.innerWidth;
+	canvas.height = window.innerHeight;
+}
+
+setTimeout(function () {
+	console.log("initialized");
+	const canvas = document.querySelector("canvas");
+	const body = document.querySelector("body");
+
+	var bodyRect = body.getBoundingClientRect();
+
+	canvas.width  = bodyRect.width;
+	canvas.height = bodyRect.height;
+}, 2000);
+
 window.initGame = function (dotNetObject) {
 	const gameDiv = document.getElementById("game");
 	gameDiv.innerHTML = "";
@@ -24,14 +44,15 @@ window.initGame = function (dotNetObject) {
 	var lastPos = mousePos;
 	canvas.addEventListener("mousedown", function (e) {
 		swiping = true;
+		console.log("x", mousePos.x, "y", mousePos.y);
 		lastPos = getMousePos(canvas, e);
-		currentSwipeStartX = lastPos.x
-		currentSwipeStartY = lastPos.y
+		currentSwipeStartX = lastPos.x / canvas.width;
+		currentSwipeStartY = lastPos.y / canvas.height;
 	}, false);
 	canvas.addEventListener("mouseup", function (e) {
 		swiping = false;
-		currentSwipeStopX = mousePos.x
-		currentSwipeStopY = mousePos.y
+		currentSwipeStopX = mousePos.x / canvas.width;
+		currentSwipeStopY = mousePos.y / canvas.height;
 		dotNetObject.invokeMethodAsync('sendXY', currentSwipeStopX - currentSwipeStartX, currentSwipeStopY - currentSwipeStartY)
 			.then(data => {
 				console.log("a", data)
