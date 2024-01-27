@@ -1,0 +1,49 @@
+﻿@page "/"
+@using Placuszki.Krakjam2024.Server
+@inject GameplayService GameplayService
+@inject SessionService SessionService
+
+@for (int i = 0; i < ButtonsCount; i++)
+{
+    var buttonId = i;
+    <button class="btn btn-primary" @onpointerdown="() => ButtonPressed(buttonId)" @onpointerup="() => ButtonReleased(buttonId)">@buttonId</button>
+}
+@for (int i = 0; i < ButtonsCount; i++)
+{
+    var buttonId = i;
+    <div>Button @buttonId: @_buttonPressed[buttonId]</div>
+}
+
+@code {
+    private readonly List<bool> _buttonPressed = new();
+    private const int ButtonsCount = 4;
+
+    public Index()
+    {
+        Init();
+    }
+
+    private void Init()
+    {
+        for (int i = 0; i < ButtonsCount; i++)
+            _buttonPressed.Add(false);
+    }
+
+    private void ButtonPressed(int button)
+    {
+        _buttonPressed[button] = true;
+        NotifyClients(button, true);
+    }
+
+    private void ButtonReleased(int button)
+    {
+        _buttonPressed[button] = false;
+        NotifyClients(button, false);
+    }
+
+    private void NotifyClients(int button, bool b)
+    {
+        string playerId = SessionService.PlayerId;
+        GameplayService.SendUpdateToClients(playerId, button.ToString(), b ? 1 : 0);
+    }
+}
