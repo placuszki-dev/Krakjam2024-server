@@ -34,8 +34,7 @@ public class SessionService
 	    return CheeseType;
     }
 
-    // TODO: Szymon
-    public void setPhoneColor(int cheeseType) {
+    public void setCheeseType(int cheeseType) {
 	    CheeseType = cheeseType;
     }
     

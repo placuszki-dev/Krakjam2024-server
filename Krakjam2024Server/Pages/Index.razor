@@ -17,22 +17,17 @@
 
     DotNetObjectReference<Index> ObjectReference;
 
-    // TODO: Szymon wywolaj to w JS po tym jak wybierzesz ser i ustawisz go w SessionService
-    private void SendUserInfoToClients()
+    [JSInvokable]
+    public void SendUserInfoToClients(int cheeseType)
     {
+        SessionService.setCheeseType(cheeseType);
         var userInfo = new UserInfo
         {
             PlayerId = SessionService.getPlayerId(),
             PhoneColor = SessionService.getPhoneColor(),
-            CheeseType = SessionService.getCheeseType(),
+            CheeseType = cheeseType,
         };
         GameplayService.SendUserInfoToClients(userInfo);
-    }
-    
-    // To wywolaj Szymon
-    private void SendDataPacketToClients(DataPacket dataPacket)
-    {
-        GameplayService.SendUpdateToClients(dataPacket);
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -40,7 +35,6 @@
         base.OnAfterRender(firstRender);
         if (firstRender)
         {
-            // See warning about memory above in the article
             ObjectReference = DotNetObjectReference.Create(this);
             JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
         }
