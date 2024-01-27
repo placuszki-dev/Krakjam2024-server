@@ -43,6 +43,11 @@ window.initGame = function (dotNetObject) {
     if (overlay.parentNode) {
       overlay.parentNode.removeChild(overlay);
     }
+
+    dotNetObject.invokeMethodAsync('SendUserInfoToClients', 1)
+      .then(data => {
+        console.log("a", data)
+      });
   });
 
   const canvas = document.createElement("canvas");
