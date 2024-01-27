@@ -4,6 +4,7 @@ public class SessionService
 {
     public string PlayerId;
     public string PhoneColor;
+    public int CheeseType;
 
     public string getPlayerId()
     {
@@ -28,6 +29,16 @@ public class SessionService
 	    PhoneColor = color;
     }
 
+    public int getCheeseType()
+    {
+	    return CheeseType;
+    }
+
+    // TODO: Szymon
+    public void setPhoneColor(int cheeseType) {
+	    CheeseType = cheeseType;
+    }
+    
     private static string GenerateRandomHexColor()
     {
         Random random = new Random();
