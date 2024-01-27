@@ -81,7 +81,15 @@ window.initGame = function (dotNetObject) {
 		swiping = false;
 		currentSwipeStopX = mousePos.x / canvas.width;
 		currentSwipeStopY = mousePos.y / canvas.height;
-		dotNetObject.invokeMethodAsync('sendXY', currentSwipeStopX - currentSwipeStartX, currentSwipeStopY - currentSwipeStartY)
+		const diffX = currentSwipeStopX - currentSwipeStartX;
+		const diffY = currentSwipeStopY - currentSwipeStartY;
+		console.log("diffX", diffX);
+		console.log("diffY", diffY);
+		if (Math.abs(diffY) < 0.05) {
+			console.log("too sm0l");
+			return
+		}
+		dotNetObject.invokeMethodAsync('sendXY', diffX, diffY)
 			.then(data => {
 				console.log("a", data)
 			});
@@ -113,6 +121,9 @@ window.initGame = function (dotNetObject) {
 	})();
 
 	canvas.addEventListener("touchstart", function (e) {
+		if (e.target == canvas) {
+			e.preventDefault();
+		}
 		mousePos = getTouchPos(canvas, e);
 		var touch = e.touches[0];
 		var mouseEvent = new MouseEvent("mousedown", {
@@ -122,10 +133,16 @@ window.initGame = function (dotNetObject) {
 		canvas.dispatchEvent(mouseEvent);
 	}, false);
 	canvas.addEventListener("touchend", function (e) {
+		if (e.target == canvas) {
+			e.preventDefault();
+		}
 		var mouseEvent = new MouseEvent("mouseup", {});
 		canvas.dispatchEvent(mouseEvent);
 	}, false);
 	canvas.addEventListener("touchmove", function (e) {
+		if (e.target == canvas) {
+			e.preventDefault();
+		}
 		var touch = e.touches[0];
 		var mouseEvent = new MouseEvent("mousemove", {
 			clientX: touch.clientX,
