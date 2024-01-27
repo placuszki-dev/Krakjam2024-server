@@ -61,6 +61,12 @@
     }
 
     [JSInvokable]
+    public string getPhoneColor()
+    {
+        return SessionService.PhoneColor;
+    }
+
+    [JSInvokable]
     public void sendXY(float x, float y)
     {
         float sendX = x;

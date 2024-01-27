@@ -35,6 +35,12 @@ window.initGame = function (dotNetObject) {
 	ctx.strokeStyle = "#222222";
 	ctx.lineWith = 2;
 
+	dotNetObject.invokeMethodAsync('getPhoneColor')
+		.then(data => {
+			console.log("a", data)
+			document.body.style.backgroundColor = data;
+		});
+
 	var swiping = false;
 	var mousePos = { x:0, y:0 };
 	var currentSwipeStartX = 0;
