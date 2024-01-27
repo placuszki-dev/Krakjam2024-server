@@ -22,19 +22,24 @@ setTimeout(function () {
   }
 
   gameReady = true;
-  const btn = document.querySelector("#start-game");
-  btn.innerHTML = "Start";
-
 }, 2000);
-
 
 window.initGame = function (dotNetObject) {
   console.log("INIT GAME");
   const gameDiv = document.getElementById("game");
   gameDiv.innerHTML = "";
 
-  const button = document.querySelector("#start-game");
-  button.addEventListener('click', function (e) {
+  const buttonGouda = document.querySelector(".start-game.gouda");
+  buttonGouda.addEventListener('click', function (e) {
+    startGame(1);
+  });
+
+  const buttonCheddar = document.querySelector(".start-game.cheddar");
+  buttonCheddar.addEventListener('click', function (e) {
+    startGame(2);
+  });
+
+  const startGame = function (cheeseType) {
     if (!gameReady) {
       return
     }
@@ -43,16 +48,17 @@ window.initGame = function (dotNetObject) {
     if (overlay.parentNode) {
       overlay.parentNode.removeChild(overlay);
     }
-
-    dotNetObject.invokeMethodAsync('SendUserInfoToClients', 1)
+    dotNetObject.invokeMethodAsync('SendUserInfoToClients', cheeseType)
       .then(data => {
         console.log("a", data)
       });
-  });
+  }
 
   const canvas = document.createElement("canvas");
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
+  const body = document.querySelector("body");
+  var bodyRect = body.getBoundingClientRect();
+  canvas.width  = bodyRect.width;
+  canvas.height = bodyRect.height;
 
   console.log("appending canvas to game div");
   gameDiv.appendChild(canvas);

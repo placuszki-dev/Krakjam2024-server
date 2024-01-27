@@ -77,7 +77,8 @@ a, .btn-link {
   left: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  flex-direction: column;
 }
 
 .splash-overlay button {
@@ -85,17 +86,21 @@ a, .btn-link {
     color: white;
     padding: 16px;
     background-size: cover;
-    width: 70vw;
-    font-size: 3rem;
+    width: 100%;
+    height: 100%;
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
 }
 
 .splash-overlay button.gouda {
-    background-image: url(gouda.png);
+    background-image: url(/gouda.png);
     color: #000;
 }
 
 .splash-overlay button.cheddar {
-    background-image: url(cheddar.png);
+    background-image: url(/cheddar.png);
     color: #fff;
 }
 
