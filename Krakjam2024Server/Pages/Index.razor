@@ -17,30 +17,22 @@
 
     DotNetObjectReference<Index> ObjectReference;
 
-    public Index()
+    // TODO: Szymon wywolaj to w JS po tym jak wybierzesz ser i ustawisz go w SessionService
+    private void SendUserInfoToClients()
     {
+        var userInfo = new UserInfo
+        {
+            PlayerId = SessionService.getPlayerId(),
+            PhoneColor = SessionService.getPhoneColor(),
+            CheeseType = SessionService.getCheeseType(),
+        };
+        GameplayService.SendUserInfoToClients(userInfo);
     }
-
-    private void InitGame()
-    {
-        // JS.InvokeAsync<string>("initGame");
-    }
-
-    private void ButtonPressed()
-    {
-        SendDataPacketToClients();
-    }
-
-    private void ButtonReleased()
-    {
-    }
-
+    
     private void SendDataPacketToClients()
     {
         var dataPacket = new DataPacket
         {
-            PlayerId = SessionService.getPlayerId(),
-            PhoneColor = SessionService.getPhoneColor(),
             X = _x,
             Y = _y,
         };
@@ -96,8 +88,6 @@
 
         var dataPacket = new DataPacket
         {
-            PlayerId = SessionService.getPlayerId(),
-            PhoneColor = SessionService.getPhoneColor(),
             X = sendX,
             Y = sendY,
         };

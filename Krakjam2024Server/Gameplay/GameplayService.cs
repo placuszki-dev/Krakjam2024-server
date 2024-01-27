@@ -23,4 +23,10 @@ public class GameplayService : BackgroundService
     {
         _gameHub.Clients.All.SendDataPacket(dataPacket);
     }
+
+    public void SendUserInfoToClients(UserInfo userInfo)
+    {
+        _gameHub.Clients.All.SendUserInfo(userInfo);
+
+    }
 }
