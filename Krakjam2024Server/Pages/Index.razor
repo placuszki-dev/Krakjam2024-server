@@ -3,47 +3,55 @@
 @inject GameplayService GameplayService
 @inject SessionService SessionService
 
-@for (int i = 0; i < ButtonsCount; i++)
-{
-    var buttonId = i;
-    <button class="btn btn-primary" @onpointerdown="() => ButtonPressed(buttonId)" @onpointerup="() => ButtonReleased(buttonId)">@buttonId</button>
-}
-@for (int i = 0; i < ButtonsCount; i++)
-{
-    var buttonId = i;
-    <div>Button @buttonId: @_buttonPressed[buttonId]</div>
-}
+<style>
+    body {
+        background-color: @SessionService.PhoneColor;
+    }
+</style>
+
+<div>
+    Player ID: 
+    @SessionService.PlayerId
+</div>
+<button class="btn btn-primary" @onpointerdown="() => ButtonPressed()" @onpointerup="() => ButtonReleased()">Send</button>
+<div>
+    <label>
+        x
+        <InputNumber @bind-Value="_x"/>
+    </label>
+    <label>
+        y
+        <InputNumber @bind-Value="_y"/>
+    </label>
+</div>
 
 @code {
-    private readonly List<bool> _buttonPressed = new();
-    private const int ButtonsCount = 4;
+    private float _x;
+    private float _y;
 
     public Index()
     {
-        Init();
     }
 
-    private void Init()
+    private void ButtonPressed()
     {
-        for (int i = 0; i < ButtonsCount; i++)
-            _buttonPressed.Add(false);
+        SendDataPacketToClients();
     }
 
-    private void ButtonPressed(int button)
+    private void ButtonReleased()
     {
-        _buttonPressed[button] = true;
-        NotifyClients(button, true);
+        SendDataPacketToClients();
     }
 
-    private void ButtonReleased(int button)
+    private void SendDataPacketToClients()
     {
-        _buttonPressed[button] = false;
-        NotifyClients(button, false);
-    }
-
-    private void NotifyClients(int button, bool b)
-    {
-        string playerId = SessionService.PlayerId;
-        GameplayService.SendUpdateToClients(playerId, button.ToString(), b ? 1 : 0);
+        var dataPacket = new DataPacket
+        {
+            PlayerId = SessionService.PlayerId,
+            PhoneColor = SessionService.PhoneColor,
+            X = _x,
+            Y = _y,
+        };
+        GameplayService.SendUpdateToClients(dataPacket);
     }
 }
