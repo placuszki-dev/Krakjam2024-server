@@ -13,21 +13,23 @@
     Player ID: 
     @SessionService.PlayerId
 </div>
-<button class="btn btn-primary" @onpointerdown="() => ButtonPressed()" @onpointerup="() => ButtonReleased()">Send</button>
 <div>
     <label>
         x
-        <InputNumber @bind-Value="_x"/>
+        <input type="range" min="-10" max="10" step="1" @bind="@_x" @bind:event="oninput"/>
+        <span>@_x</span>
     </label>
     <label>
         y
-        <InputNumber @bind-Value="_y"/>
+        <input type="range" min="0" max="10" step="1" @bind="@_y" @bind:event="oninput"/>
+        <span>@_y</span>
     </label>
 </div>
+<button class="btn btn-primary" @onpointerdown="() => ButtonPressed()" @onpointerup="() => ButtonReleased()">Send</button>
 
 @code {
-    private float _x = 0.2f;
-    private float _y = 1;
+    private float _x = 0f;
+    private float _y = 5;
 
     public Index()
     {
@@ -40,7 +42,6 @@
 
     private void ButtonReleased()
     {
-        SendDataPacketToClients();
     }
 
     private void SendDataPacketToClients()
@@ -52,6 +53,12 @@
             X = _x,
             Y = _y,
         };
+        GameplayService.SendUpdateToClients(dataPacket);
+    }
+    
+    // To wywolaj Szymon
+    private void SendDataPacketToClients(DataPacket dataPacket)
+    {
         GameplayService.SendUpdateToClients(dataPacket);
     }
 }
