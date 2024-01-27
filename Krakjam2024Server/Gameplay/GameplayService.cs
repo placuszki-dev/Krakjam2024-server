@@ -19,14 +19,8 @@ public class GameplayService : BackgroundService
         await Task.CompletedTask;
     }
 
-    public void SendUpdateToClients(string playerId, string key, int value)
+    public void SendUpdateToClients(DataPacket dataPacket)
     {
-        DataPacket dataPacket = new DataPacket
-        {
-            PlayerId = playerId,
-            Key = key,
-            Value = value,
-        };
         _gameHub.Clients.All.SendDataPacket(dataPacket);
     }
 }
