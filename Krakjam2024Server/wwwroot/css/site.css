@@ -81,8 +81,21 @@ a, .btn-link {
 }
 
 .splash-overlay button {
-  background: black;
-  display: block;
-  color: white;
-  padding: 16px;
+    display: block;
+    color: white;
+    padding: 16px;
+    background-size: cover;
+    width: 70vw;
+    font-size: 3rem;
 }
+
+.splash-overlay button.gouda {
+    background-image: url(gouda.png);
+    color: #000;
+}
+
+.splash-overlay button.cheddar {
+    background-image: url(cheddar.png);
+    color: #fff;
+}
+
