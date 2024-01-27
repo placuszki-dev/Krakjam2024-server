@@ -3,10 +3,10 @@ var gameReady = false;
 window.onresize = function () {
 	console.log("resize");
 
-	const canvas = document.querySelector("canvas");
+	//const canvas = document.querySelector("canvas");
 
-	canvas.width  = window.innerWidth;
-	canvas.height = window.innerHeight;
+	//canvas.width  = window.innerWidth;
+	//canvas.height = window.innerHeight;
 }
 
 setTimeout(function () {
@@ -16,14 +16,17 @@ setTimeout(function () {
 
 	var bodyRect = body.getBoundingClientRect();
 
-	canvas.width  = bodyRect.width;
-	canvas.height = bodyRect.height;
+  if (canvas) {
+    canvas.width  = bodyRect.width;
+    canvas.height = bodyRect.height;
+  }
 
   gameReady = true;
   const btn = document.querySelector("#start-game");
   btn.innerHTML = "Start";
 
 }, 2000);
+
 
 window.initGame = function (dotNetObject) {
   console.log("INIT GAME");
@@ -50,8 +53,6 @@ window.initGame = function (dotNetObject) {
 	gameDiv.appendChild(canvas);
 
 	const ctx = canvas.getContext("2d");
-	ctx.strokeStyle = "#222222";
-	ctx.lineWith = 2;
 
 	const phoneColor = localStorage.getItem("phoneColor");
 	if (!phoneColor) {
@@ -84,6 +85,7 @@ window.initGame = function (dotNetObject) {
 	}
 
 
+  var sequence = 1;
 	var swiping = false;
 	var mousePos = { x:0, y:0 };
 	var currentSwipeStartX = 0;
@@ -92,6 +94,7 @@ window.initGame = function (dotNetObject) {
 	var currentSwipeStopY = 0;
 	var lastPos = mousePos;
 	canvas.addEventListener("mousedown", function (e) {
+    sequence += 3;
 		swiping = true;
 		console.log("x", mousePos.x, "y", mousePos.y);
 		lastPos = getMousePos(canvas, e);
@@ -113,9 +116,12 @@ window.initGame = function (dotNetObject) {
 		dotNetObject.invokeMethodAsync('sendXY', diffX, diffY)
 			.then(data => {
 				console.log("a", data)
+        canvas.width = canvas.width // clears canv
+        sequence = 1;
 			});
 	}, false);
 	canvas.addEventListener("mousemove", function (e) {
+    sequence += 3;
 		mousePos = getMousePos(canvas, e);
 	}, false);
 
@@ -129,9 +135,17 @@ window.initGame = function (dotNetObject) {
 
 	function renderCanvas() {
 		if (swiping) {
-			ctx.moveTo(lastPos.x, lastPos.y);
-			ctx.lineTo(mousePos.x, mousePos.y);
-			ctx.stroke();
+      ctx.globalAlpha = 0.3;
+      ctx.fillStyle = "white";
+      ctx.beginPath();
+      ctx.arc(lastPos.x, lastPos.y, 40 + sequence * 2, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(mousePos.x, mousePos.y, 40 + sequence * 2, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.globalAlpha = 1.0;
+			// ctx.lineTo(mousePos.x, mousePos.y);
+			// ctx.stroke();
 			lastPos = mousePos;
 		}
 	}
