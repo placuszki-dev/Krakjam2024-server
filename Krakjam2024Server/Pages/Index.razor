@@ -5,9 +5,10 @@
 @inject IJSRuntime JSRuntime
 
 <div id="game">
-    <button @onclick="InitGame">Start game</button>
 </div>
-
+<div class="splash-overlay">
+  <button id="start-game">Loading...</button>
+</div>
 
 @code {
     private float _x = 0f;

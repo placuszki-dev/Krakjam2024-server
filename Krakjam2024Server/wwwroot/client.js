@@ -1,3 +1,5 @@
+var gameReady = false;
+
 window.onresize = function () {
 	console.log("resize");
 
@@ -16,16 +18,35 @@ setTimeout(function () {
 
 	canvas.width  = bodyRect.width;
 	canvas.height = bodyRect.height;
+
+  gameReady = true;
+  const btn = document.querySelector("#start-game");
+  btn.innerHTML = "Start";
+
 }, 2000);
 
 window.initGame = function (dotNetObject) {
+  console.log("INIT GAME");
 	const gameDiv = document.getElementById("game");
 	gameDiv.innerHTML = "";
+
+  const button = document.querySelector("#start-game");
+  button.addEventListener('click', function (e) {
+    if (!gameReady) {
+      return
+    }
+    console.log("start game button click");
+    const overlay = document.querySelector(".splash-overlay");
+    if (overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    }
+  });
 
 	const canvas = document.createElement("canvas");
 	canvas.width  = window.innerWidth;
 	canvas.height = window.innerHeight;
 
+  console.log("appending canvas to game div");
 	gameDiv.appendChild(canvas);
 
 	const ctx = canvas.getContext("2d");
