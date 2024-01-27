@@ -2,15 +2,14 @@
 @using Placuszki.Krakjam2024.Server
 @inject GameplayService GameplayService
 @inject SessionService SessionService
+@inject IJSRuntime JS
 
-<style>
-    body {
-        background-color: @SessionService.PhoneColor;
-    }
-</style>
+<p>
+    <button @onclick="InitGame">Convert Array</button>
+</p>
 
 <div>
-    Player ID: 
+    Player ID:
     @SessionService.PlayerId
 </div>
 <div>
@@ -35,6 +34,11 @@
     {
     }
 
+    private void InitGame()
+    {
+        JS.InvokeAsync<string>("initGame");
+    }
+
     private void ButtonPressed()
     {
         SendDataPacketToClients();
@@ -55,10 +59,11 @@
         };
         GameplayService.SendUpdateToClients(dataPacket);
     }
-    
+
     // To wywolaj Szymon
     private void SendDataPacketToClients(DataPacket dataPacket)
     {
         GameplayService.SendUpdateToClients(dataPacket);
     }
+
 }
