@@ -1,0 +1,55 @@
+﻿@page "/debug"
+@using Placuszki.Krakjam2024.Server
+@inject GameplayService GameplayService
+@inject SessionService SessionService
+
+<style>
+    body {
+        background-color: @SessionService.PhoneColor;
+    }
+</style>
+
+<div>
+    Player ID:
+    @SessionService.PlayerId
+</div>
+<div>
+    <label>
+        x
+        <input type="range" min="-10" max="10" step="1" @bind="@_x" @bind:event="oninput"/>
+        <span>@_x</span>
+    </label>
+    <label>
+        y
+        <input type="range" min="0" max="10" step="1" @bind="@_y" @bind:event="oninput"/>
+        <span>@_y</span>
+    </label>
+</div>
+<button class="btn btn-primary" @onpointerdown="() => ButtonPressed()" @onpointerup="() => ButtonReleased()">Send</button>
+
+@code {
+    private float _x = 0f;
+    private float _y = 5;
+
+    private void ButtonPressed()
+    {
+        SendDataPacketToClients();
+    }
+
+    private void ButtonReleased()
+    {
+    }
+
+    private void SendDataPacketToClients()
+    {
+        var dataPacket = new DataPacket
+        {
+            PlayerId = SessionService.PlayerId,
+            PhoneColor = SessionService.PhoneColor,
+            X = _x,
+            Y = _y,
+        };
+        GameplayService.SendUpdateToClients(dataPacket);
+    }
+
+}
