@@ -63,14 +63,17 @@
     [JSInvokable]
     public void sendXY(float x, float y)
     {
+        float sendX = x;
+        float sendY = -y;
+        
         var dataPacket = new DataPacket
         {
             PlayerId = SessionService.PlayerId,
             PhoneColor = SessionService.PhoneColor,
-            X = x,
-            Y = -y,
+            X = sendX,
+            Y = sendY,
         };
-        Console.WriteLine("xDDDD");
+        Console.WriteLine($"x={sendX}, y={sendY}");
         GameplayService.SendUpdateToClients(dataPacket);
     }
 
