@@ -29,16 +29,6 @@
         GameplayService.SendUserInfoToClients(userInfo);
     }
     
-    private void SendDataPacketToClients()
-    {
-        var dataPacket = new DataPacket
-        {
-            X = _x,
-            Y = _y,
-        };
-        GameplayService.SendUpdateToClients(dataPacket);
-    }
-
     // To wywolaj Szymon
     private void SendDataPacketToClients(DataPacket dataPacket)
     {
@@ -88,6 +78,7 @@
 
         var dataPacket = new DataPacket
         {
+            PlayerId = SessionService.PlayerId,
             X = sendX,
             Y = sendY,
         };
