@@ -133,7 +133,7 @@ window.initGame = function (dotNetObject) {
       });
   }, false);
   canvas.addEventListener("mousemove", function (e) {
-    sequence += 3;
+    sequence += 2;
     mousePos = getMousePos(canvas, e);
   }, false);
 
@@ -150,10 +150,10 @@ window.initGame = function (dotNetObject) {
       ctx.globalAlpha = 0.3;
       ctx.fillStyle = "white";
       ctx.beginPath();
-      ctx.arc(lastPos.x, lastPos.y, 40 + sequence * 2, 0, 2 * Math.PI);
+      ctx.arc(lastPos.x, lastPos.y, 10 + sequence * 3, 0, 2 * Math.PI);
       ctx.fill();
       ctx.beginPath();
-      ctx.arc(mousePos.x, mousePos.y, 40 + sequence * 2, 0, 2 * Math.PI);
+      ctx.arc(mousePos.x, mousePos.y, 10 + sequence * 3, 0, 2 * Math.PI);
       ctx.fill();
       ctx.globalAlpha = 1.0;
       // ctx.lineTo(mousePos.x, mousePos.y);
