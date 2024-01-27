@@ -2,29 +2,12 @@
 @using Placuszki.Krakjam2024.Server
 @inject GameplayService GameplayService
 @inject SessionService SessionService
-@inject IJSRuntime JS
+@inject IJSRuntime JSRuntime
 
-<p>
-    <button @onclick="InitGame">Convert Array</button>
-</p>
+<div id="game">
+    <button @onclick="InitGame">Start game</button>
+</div>
 
-<div>
-    Player ID:
-    @SessionService.PlayerId
-</div>
-<div>
-    <label>
-        x
-        <input type="range" min="-10" max="10" step="1" @bind="@_x" @bind:event="oninput"/>
-        <span>@_x</span>
-    </label>
-    <label>
-        y
-        <input type="range" min="0" max="10" step="1" @bind="@_y" @bind:event="oninput"/>
-        <span>@_y</span>
-    </label>
-</div>
-<button class="btn btn-primary" @onpointerdown="() => ButtonPressed()" @onpointerup="() => ButtonReleased()">Send</button>
 
 @code {
     private float _x = 0f;
@@ -36,7 +19,7 @@
 
     private void InitGame()
     {
-        JS.InvokeAsync<string>("initGame");
+        // JS.InvokeAsync<string>("initGame");
     }
 
     private void ButtonPressed()
@@ -65,5 +48,29 @@
     {
         GameplayService.SendUpdateToClients(dataPacket);
     }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            // See warning about memory above in the article
+            var dotNetReference = DotNetObjectReference.Create(this);
+            JSRuntime.InvokeVoidAsync("window.initGame", dotNetReference);
+        }
+    }
+
+    [JSInvokable]
+    public void sendXY(float x, float y)
+    {
+        var dataPacket = new DataPacket
+        {
+            X = x,
+            Y = y,
+        };
+        Console.WriteLine("xDDDD");
+        // GameplayService.SendUpdateToClients(dataPacket);
+    }
+
 
 }
