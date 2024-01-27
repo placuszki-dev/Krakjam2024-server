@@ -2,8 +2,31 @@
 
 public class SessionService
 {
-    public string PlayerId { get; set; } = Guid.NewGuid().ToString();
-    public string PhoneColor { get; set; } = GenerateRandomHexColor();
+    public string PlayerId;
+    public string PhoneColor;
+
+    public string getPlayerId()
+    {
+	    if (string.IsNullOrEmpty(PlayerId)) {
+		    PlayerId = Guid.NewGuid().ToString();
+	    }
+	    return PlayerId;
+    }
+
+    public void setPlayerId(string id) {
+	    PlayerId = id;
+    }
+
+    public string getPhoneColor() {
+	    if (string.IsNullOrEmpty(PhoneColor)) {
+	    	PhoneColor = GenerateRandomHexColor();
+	    }
+	    return PhoneColor;
+    }
+
+    public void setPhoneColor(string color) {
+	    PhoneColor = color;
+    }
 
     private static string GenerateRandomHexColor()
     {
