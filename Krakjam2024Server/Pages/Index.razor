@@ -7,9 +7,9 @@
 
 <div id="game">
 </div>
-<div class="splash-overlay">
-  <button class="start-game gouda">Gouda</button>
-  <button class="start-game cheddar">Cheddar</button>
+<div id="splash" class="splash-overlay">
+  <button class="start-game gouda">wait pls</button>
+  <button class="start-game cheddar">wait pls</button>
 </div>
 
 @code {
@@ -44,7 +44,7 @@
 
     private void OnEndGameReceived(UserInfo obj)
     {
-        // TODO: Szymon tu wywołaj od nowa gre
+      JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
     }
 
     [JSInvokable]
