@@ -42,6 +42,7 @@ window.initGame = function (dotNetObject) {
     
     savedDotnet.invokeMethodAsync('getIsMainMenuOpened')
         .then(data => {
+          gameReady = false;
           if (data) {
             setReady();
           }
