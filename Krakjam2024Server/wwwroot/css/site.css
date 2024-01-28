@@ -99,15 +99,16 @@ a, .btn-link {
     font-weight: bold;
     text-transform: uppercase;
     border: none;
+    background-color: #BADC74;
 }
 
 .splash-overlay button.gouda {
-    background-image: url(/gouda.png);
+    background-image: url(/goudaBg.png);
     color: #000;
 }
 
 .splash-overlay button.cheddar {
-    background-image: url(/cheddar.png);
+    background-image: url(/cheddarBg.png);
     color: #fff;
 }
 

@@ -8,8 +8,8 @@
 <div id="game">
 </div>
 <div id="splash" class="splash-overlay">
-  <button class="start-game gouda waiting">wait pls</button>
-  <button class="start-game cheddar waiting">wait pls</button>
+  <button class="start-game gouda waiting">wait</button>
+  <button class="start-game cheddar waiting">wait</button>
 </div>
 
 @code {
@@ -58,6 +58,7 @@
     {
         // TODO: vibrate userInfo's phone
         Console.WriteLine($"Vibrate for user {playerId}");
+        JSRuntime.InvokeVoidAsync("window.vibrate");
     }
     
     [JSInvokable]
