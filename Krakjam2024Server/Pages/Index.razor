@@ -13,8 +13,7 @@
 </div>
 
 @code {
-    private float _x = 0f;
-    private float _y = 5;
+    private bool isMainMenuOpened = false;
 
     DotNetObjectReference<Index> ObjectReference;
 
@@ -51,7 +50,14 @@
 
     private void OnMainMenuOpenedOnClient()
     {
+        isMainMenuOpened = true;
         JSRuntime.InvokeVoidAsync("window.setReady");
+    }
+    
+    [JSInvokable]
+    public bool getIsMainMenuOpened()
+    {
+        return isMainMenuOpened;
     }
 
     [JSInvokable]
