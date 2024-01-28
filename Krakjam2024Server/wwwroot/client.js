@@ -9,32 +9,49 @@ window.onresize = function () {
   //canvas.height = window.innerHeight;
 }
 
-setTimeout(function () {
-  console.log("initialized");
-  const canvas = document.querySelector("canvas");
-  const body = document.querySelector("body");
+window.setReady = function() {
+  const buttonGouda = document.querySelector(".start-game.gouda");
+  buttonGouda.innerHTML = "Gouda";
 
-  var bodyRect = body.getBoundingClientRect();
-
-  if (canvas) {
-    canvas.width  = bodyRect.width;
-    canvas.height = bodyRect.height;
-  }
-
+  const buttonCheddar = document.querySelector(".start-game.cheddar");
+  buttonCheddar.innerHTML = "Cheddar";
   gameReady = true;
-}, 2000);
+}
 
 window.initGame = function (dotNetObject) {
+  gameReady = false;
+
+  setTimeout(function () {
+    console.log("initialized");
+    const canvas = document.querySelector("canvas");
+    const body = document.querySelector("body");
+
+    var bodyRect = body.getBoundingClientRect();
+
+    if (canvas) {
+      canvas.width  = bodyRect.width;
+      canvas.height = bodyRect.height;
+    }
+
+    gameReady = true;
+  }, 2000);
+
   console.log("INIT GAME");
   const gameDiv = document.getElementById("game");
+  const splashDiv = document.getElementById("splash");
   gameDiv.innerHTML = "";
 
+  const overlay = document.querySelector(".splash-overlay");
+  overlay.classList.remove('hidden');
+
   const buttonGouda = document.querySelector(".start-game.gouda");
+  buttonGouda.innerHTML = "wait pls";
   buttonGouda.addEventListener('click', function (e) {
     startGame(1);
   });
 
   const buttonCheddar = document.querySelector(".start-game.cheddar");
+  buttonCheddar.innerHTML = "wait pls";
   buttonCheddar.addEventListener('click', function (e) {
     startGame(2);
   });
@@ -45,9 +62,10 @@ window.initGame = function (dotNetObject) {
       return
     }
     const overlay = document.querySelector(".splash-overlay");
-    if (overlay.parentNode) {
-      overlay.parentNode.removeChild(overlay);
-    }
+    overlay.classList.add('hidden');
+    //if (overlay.parentNode) {
+    //  overlay.parentNode.removeChild(overlay);
+    //}
     dotNetObject.invokeMethodAsync('SendUserInfoToClients', cheeseType)
       .then(data => {
         console.log("a", data)

@@ -81,6 +81,11 @@ a, .btn-link {
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+  z-index: 100;
+}
+
+.splash-overlay.hidden {
+  display: none;
 }
 
 .splash-overlay button {
