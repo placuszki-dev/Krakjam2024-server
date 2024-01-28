@@ -43,14 +43,15 @@
         }
     }
 
-    private void OnEndGameReceived(UserInfo obj)
+    private void OnEndGameReceived(UserInfo winner)
     {
-      JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
+        // Ignore winner. NOTE: it may be null
+        JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
     }
 
     private void OnMainMenuOpenedOnClient()
     {
-        // TODO: Szymon tu uaktywnik przyciski wyboru serow
+        JSRuntime.InvokeVoidAsync("window.setReady");
     }
 
     [JSInvokable]
