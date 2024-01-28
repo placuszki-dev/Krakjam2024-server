@@ -21,6 +21,13 @@ public class GameHub : Hub<IGameHub>, IClientHub
 
     public void SendEndGameToServer(UserInfo winner)
     {
+        Console.WriteLine($"SendEndGameToServer: {winner.PlayerId}");
         _gameplayService.OnEndGameReceivedFromClient(winner);
+    }
+
+    public void SendMainMenuOpenedToServer()
+    {
+        Console.WriteLine($"MainMenuOpened");
+        _gameplayService.OnMainMenuOpenedOnClient();
     }
 }
