@@ -37,9 +37,10 @@
             JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
             GameplayService.EndGameReceived += OnEndGameReceived;
             GameplayService.MainMenuOpenedOnClient += OnMainMenuOpenedOnClient;
+            GameplayService.VibratePhoneReceived += VibratePhone;
         }
     }
-
+    
     // NOTE: winningCheeseType might be 0, when user on PC pressed Escape
     private void OnEndGameReceived(int winningCheeseType)
     {
@@ -51,6 +52,12 @@
         Console.WriteLine("OnMainMenuOpenedOnClient was called");
         GameplayService.IsMainMenuOpened = true;
         JSRuntime.InvokeVoidAsync("window.setReady");
+    }
+    
+    private void VibratePhone(string playerId, float force)
+    {
+        // TODO: vibrate userInfo's phone
+        Console.WriteLine($"Vibrate for user {playerId}");
     }
     
     [JSInvokable]

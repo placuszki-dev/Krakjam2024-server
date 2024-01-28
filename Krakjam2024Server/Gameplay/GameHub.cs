@@ -30,4 +30,9 @@ public class GameHub : Hub<IGameHub>, IClientHub
         Console.WriteLine($"MainMenuOpened");
         _gameplayService.OnMainMenuOpenedOnClient();
     }
+
+    public void VibratePhone(string playerId, float force)
+    {
+        _gameplayService.OnVibratePhoneReceived(playerId, force);
+    }
 }
