@@ -6,6 +6,7 @@ public class GameplayService : BackgroundService
 {
     public event Action<int> EndGameReceived;
     public event Action MainMenuOpenedOnClient;
+    public event Action<string, float> VibratePhoneReceived;
     
     private readonly ILogger<GameplayService> _logger;
     private static IHubContext<GameHub, IGameHub> _gameHub;
@@ -43,5 +44,10 @@ public class GameplayService : BackgroundService
     public void OnMainMenuOpenedOnClient()
     {
         MainMenuOpenedOnClient?.Invoke();
+    }
+
+    public void OnVibratePhoneReceived(string playerId, float force)
+    {
+        VibratePhoneReceived?.Invoke(playerId, force);
     }
 }
