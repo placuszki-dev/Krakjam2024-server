@@ -38,7 +38,12 @@ window.initGame = function (dotNetObject) {
       canvas.height = bodyRect.height;
     }
 
-    // to wywalic jak bedzie gotowy kod: gameReady = true;
+    savedDotnet.invokeMethodAsync('getIsMainMenuOpened')
+        .then(data => {
+          if (data) {
+            setReady();
+          }
+        });
   }, 2000);
 
   console.log("INIT GAME");
@@ -51,15 +56,15 @@ window.initGame = function (dotNetObject) {
 
   const buttonGouda = document.querySelector(".start-game.gouda");
   buttonGouda.innerHTML = "wait pls";
-  buttonGouda.addEventListener('click', function (e) {
+  buttonGouda.onclick = function (e) {
     startGame(1);
-  });
+  };
 
   const buttonCheddar = document.querySelector(".start-game.cheddar");
   buttonCheddar.innerHTML = "wait pls";
-  buttonCheddar.addEventListener('click', function (e) {
+  buttonCheddar.onclick = function (e) {
     startGame(2);
-  });
+  };
 
   const startGame = function (cheeseType) {
     console.log("start game button click", gameReady);
@@ -68,9 +73,7 @@ window.initGame = function (dotNetObject) {
     }
     const overlay = document.querySelector(".splash-overlay");
     overlay.classList.add('hidden');
-    //if (overlay.parentNode) {
-    //  overlay.parentNode.removeChild(overlay);
-    //}
+
     dotNetObject.invokeMethodAsync('SendUserInfoToClients', cheeseType)
       .then(data => {
         console.log("a", data)
@@ -128,15 +131,15 @@ window.initGame = function (dotNetObject) {
   var currentSwipeStopY = 0;
   var lastPos = mousePos;
   console.log("Setting up canvas events...");
-  canvas.addEventListener("mousedown", function (e) {
+  canvas.onmousedown = function (e) {
     sequence += 3;
     swiping = true;
     console.log("x", mousePos.x, "y", mousePos.y);
     lastPos = getMousePos(canvas, e);
     currentSwipeStartX = lastPos.x / canvas.width;
     currentSwipeStartY = lastPos.y / canvas.height;
-  }, false);
-  canvas.addEventListener("mouseup", function (e) {
+  };
+  canvas.onmouseup = function (e) {
     swiping = false;
     currentSwipeStopX = mousePos.x / canvas.width;
     currentSwipeStopY = mousePos.y / canvas.height;
@@ -154,11 +157,11 @@ window.initGame = function (dotNetObject) {
         canvas.width = canvas.width // clears canv
         sequence = 1;
       });
-  }, false);
-  canvas.addEventListener("mousemove", function (e) {
+  };
+  canvas.onmousemove = function (e) {
     sequence += 2;
     mousePos = getMousePos(canvas, e);
-  }, false);
+  };
 
   function getMousePos(canvasDom, mouseEvent) {
     var rect = canvasDom.getBoundingClientRect();
@@ -190,7 +193,7 @@ window.initGame = function (dotNetObject) {
     renderCanvas();
   })();
 
-  canvas.addEventListener("touchstart", function (e) {
+  canvas.ontouchstart = function (e) {
     if (e.target == canvas) {
       e.preventDefault();
     }
@@ -201,15 +204,15 @@ window.initGame = function (dotNetObject) {
       clientY: touch.clientY
     });
     canvas.dispatchEvent(mouseEvent);
-  }, false);
-  canvas.addEventListener("touchend", function (e) {
+  };
+  canvas.ontouchend = function (e) {
     if (e.target == canvas) {
       e.preventDefault();
     }
     var mouseEvent = new MouseEvent("mouseup", {});
     canvas.dispatchEvent(mouseEvent);
-  }, false);
-  canvas.addEventListener("touchmove", function (e) {
+  };
+  canvas.ontouchmove = function (e) {
     if (e.target == canvas) {
       e.preventDefault();
     }
@@ -219,7 +222,7 @@ window.initGame = function (dotNetObject) {
       clientY: touch.clientY
     });
     canvas.dispatchEvent(mouseEvent);
-  }, false);
+  };
 
   function getTouchPos(canvasDom, touchEvent) {
     var rect = canvasDom.getBoundingClientRect();
