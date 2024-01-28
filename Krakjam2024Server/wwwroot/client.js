@@ -9,17 +9,21 @@ window.onresize = function () {
   //canvas.height = window.innerHeight;
 }
 
+window.vibrate = function() {
+  navigator.vibrate(200);
+}
+
 window.setReady = function() {
   if (gameReady) {
     // that's the case when Esc is push
     initGame(savedDotnet);
   }
   const buttonGouda = document.querySelector(".start-game.gouda");
-  buttonGouda.innerHTML = "Gouda";
+  buttonGouda.innerHTML = "";
   buttonGouda.classList.remove('waiting')
 
   const buttonCheddar = document.querySelector(".start-game.cheddar");
-  buttonCheddar.innerHTML = "Cheddar";
+  buttonCheddar.innerHTML = "";
   buttonCheddar.classList.remove('waiting');
   gameReady = true;
 }
@@ -58,14 +62,14 @@ window.initGame = function (dotNetObject) {
   overlay.classList.remove('hidden');
 
   const buttonGouda = document.querySelector(".start-game.gouda");
-  buttonGouda.innerHTML = "wait pls";
+  buttonGouda.innerHTML = "wait";
   buttonGouda.classList.add('waiting')
   buttonGouda.onclick = function (e) {
     startGame(1);
   };
 
   const buttonCheddar = document.querySelector(".start-game.cheddar");
-  buttonCheddar.innerHTML = "wait pls";
+  buttonCheddar.innerHTML = "wait";
   buttonCheddar.classList.add('waiting')
   buttonCheddar.onclick = function (e) {
     startGame(2);
