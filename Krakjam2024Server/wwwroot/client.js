@@ -51,7 +51,7 @@ window.initGame = function (dotNetObject) {
   console.log("INIT GAME");
   const gameDiv = document.getElementById("game");
   const splashDiv = document.getElementById("splash");
-  <gameDiv className="i"></gameDiv>nnerHTML = "";
+  gameDiv.innerHTML = "";
 
   const overlay = document.querySelector(".splash-overlay");
   overlay.classList.remove('hidden');
