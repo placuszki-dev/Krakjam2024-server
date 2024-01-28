@@ -43,9 +43,9 @@
         }
     }
 
-    private void OnEndGameReceived(UserInfo winner)
+    // NOTE: winningCheeseType might be 0, when user on PC pressed Escape
+    private void OnEndGameReceived(int winningCheeseType)
     {
-        // Ignore winner. NOTE: it may be null
         JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
     }
 
