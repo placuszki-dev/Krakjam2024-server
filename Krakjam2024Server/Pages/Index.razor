@@ -39,12 +39,18 @@
             ObjectReference = DotNetObjectReference.Create(this);
             JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
             GameplayService.EndGameReceived += OnEndGameReceived;
+            GameplayService.MainMenuOpenedOnClient += OnMainMenuOpenedOnClient;
         }
     }
 
     private void OnEndGameReceived(UserInfo obj)
     {
       JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
+    }
+
+    private void OnMainMenuOpenedOnClient()
+    {
+        // TODO: Szymon tu uaktywnik przyciski wyboru serow
     }
 
     [JSInvokable]
