@@ -84,37 +84,48 @@ a, .btn-link {
   z-index: 100;
 }
 
+.splash-overlay .napis {
+  height: 20%;
+  width: 100%;
+  text-align: center;
+  font-size: 3rem;
+  background-color: #BADC74;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-top: 20%;
+}
+
 .splash-overlay.hidden {
   display: none;
 }
 
 .splash-overlay button {
-    display: block;
-    color: white;
-    padding: 16px;
-    background-size: contain;
-    width: 100%;
-    height: 100%;
-    font-size: 4rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border: none;
-    background-color: #BADC74;
-    background-repeat: no-repeat;
-    background-position: center;
+  display: block;
+  color: white;
+  padding: 16px;
+  background-size: contain;
+  width: 100%;
+  height: 40%;
+  font-size: 4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  background-color: #BADC74;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .splash-overlay button.gouda {
-    background-image: url(/goudaBg.png);
-    color: #000;
+  background-image: url(/goudaBg.png);
+  color: #000;
 }
 
 .splash-overlay button.cheddar {
-    background-image: url(/cheddarBg.png);
-    color: #fff;
+  background-image: url(/cheddarBg.png);
+  color: #fff;
 }
 
 .splash-overlay button.waiting {
-    filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
