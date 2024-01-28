@@ -39,7 +39,7 @@ window.initGame = function (dotNetObject) {
       canvas.width  = bodyRect.width;
       canvas.height = bodyRect.height;
     }
-
+    
     savedDotnet.invokeMethodAsync('getIsMainMenuOpened')
         .then(data => {
           if (data) {

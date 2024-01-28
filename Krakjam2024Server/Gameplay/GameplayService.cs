@@ -10,6 +10,8 @@ public class GameplayService : BackgroundService
     private readonly ILogger<GameplayService> _logger;
     private static IHubContext<GameHub, IGameHub> _gameHub;
 
+    public bool IsMainMenuOpened;
+    
     public GameplayService(ILogger<GameplayService> logger, IHubContext<GameHub, IGameHub> gameHub)
     {
         _logger = logger;
@@ -34,6 +36,7 @@ public class GameplayService : BackgroundService
 
     public void OnEndGameReceivedFromClient(int winningCheeseType)
     {
+        IsMainMenuOpened = false;
         EndGameReceived?.Invoke(winningCheeseType);
     }
 

@@ -13,8 +13,6 @@
 </div>
 
 @code {
-    private bool isMainMenuOpened = false;
-
     DotNetObjectReference<Index> ObjectReference;
 
     [JSInvokable]
@@ -50,14 +48,16 @@
 
     private void OnMainMenuOpenedOnClient()
     {
-        isMainMenuOpened = true;
+        Console.WriteLine("OnMainMenuOpenedOnClient was called");
+        GameplayService.IsMainMenuOpened = true;
         JSRuntime.InvokeVoidAsync("window.setReady");
     }
     
     [JSInvokable]
     public bool getIsMainMenuOpened()
     {
-        return isMainMenuOpened;
+        Console.WriteLine($"getIsMainMenuOpened was called {GameplayService.IsMainMenuOpened}");
+        return GameplayService.IsMainMenuOpened;
     }
 
     [JSInvokable]
