@@ -1,5 +1,5 @@
 var gameReady = false;
-
+var savedDotnet = null;
 window.onresize = function () {
   console.log("resize");
 
@@ -10,6 +10,10 @@ window.onresize = function () {
 }
 
 window.setReady = function() {
+  if (gameReady) {
+    // that's the case when Esc is push
+    initGame(savedDotnet);
+  }
   const buttonGouda = document.querySelector(".start-game.gouda");
   buttonGouda.innerHTML = "Gouda";
 
@@ -19,6 +23,7 @@ window.setReady = function() {
 }
 
 window.initGame = function (dotNetObject) {
+  savedDotnet = dotNetObject;
   gameReady = false;
 
   setTimeout(function () {
@@ -33,7 +38,7 @@ window.initGame = function (dotNetObject) {
       canvas.height = bodyRect.height;
     }
 
-    gameReady = true;
+    // to wywalic jak bedzie gotowy kod: gameReady = true;
   }, 2000);
 
   console.log("INIT GAME");
