@@ -19,10 +19,10 @@ public class GameHub : Hub<IGameHub>, IClientHub
         return base.OnConnectedAsync();
     }
 
-    public void SendEndGameToServer(UserInfo winner)
+    public void SendEndGameToServer(int winningCheeseType)
     {
-        Console.WriteLine($"SendEndGameToServer: {winner.PlayerId}");
-        _gameplayService.OnEndGameReceivedFromClient(winner);
+        Console.WriteLine($"SendEndGameToServer: {winningCheeseType}");
+        _gameplayService.OnEndGameReceivedFromClient(winningCheeseType);
     }
 
     public void SendMainMenuOpenedToServer()

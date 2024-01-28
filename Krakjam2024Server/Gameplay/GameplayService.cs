@@ -4,7 +4,7 @@ namespace Placuszki.Krakjam2024.Server;
 
 public class GameplayService : BackgroundService
 {
-    public event Action<UserInfo> EndGameReceived;
+    public event Action<int> EndGameReceived;
     public event Action MainMenuOpenedOnClient;
     
     private readonly ILogger<GameplayService> _logger;
@@ -32,9 +32,9 @@ public class GameplayService : BackgroundService
         _gameHub.Clients.All.SendUserInfo(userInfo);
     }
 
-    public void OnEndGameReceivedFromClient(UserInfo winner)
+    public void OnEndGameReceivedFromClient(int winningCheeseType)
     {
-        EndGameReceived?.Invoke(winner);
+        EndGameReceived?.Invoke(winningCheeseType);
     }
 
     public void OnMainMenuOpenedOnClient()
