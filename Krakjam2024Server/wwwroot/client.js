@@ -16,9 +16,11 @@ window.setReady = function() {
   }
   const buttonGouda = document.querySelector(".start-game.gouda");
   buttonGouda.innerHTML = "Gouda";
+  buttonGouda.classList.remove('waiting')
 
   const buttonCheddar = document.querySelector(".start-game.cheddar");
   buttonCheddar.innerHTML = "Cheddar";
+  buttonCheddar.classList.remove('waiting');
   gameReady = true;
 }
 
@@ -49,19 +51,21 @@ window.initGame = function (dotNetObject) {
   console.log("INIT GAME");
   const gameDiv = document.getElementById("game");
   const splashDiv = document.getElementById("splash");
-  gameDiv.innerHTML = "";
+  <gameDiv className="i"></gameDiv>nnerHTML = "";
 
   const overlay = document.querySelector(".splash-overlay");
   overlay.classList.remove('hidden');
 
   const buttonGouda = document.querySelector(".start-game.gouda");
   buttonGouda.innerHTML = "wait pls";
+  buttonGouda.classList.add('waiting')
   buttonGouda.onclick = function (e) {
     startGame(1);
   };
 
   const buttonCheddar = document.querySelector(".start-game.cheddar");
   buttonCheddar.innerHTML = "wait pls";
+  buttonCheddar.classList.add('waiting')
   buttonCheddar.onclick = function (e) {
     startGame(2);
   };
