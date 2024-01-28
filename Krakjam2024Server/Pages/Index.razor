@@ -58,7 +58,7 @@
     {
         // TODO: vibrate userInfo's phone
         Console.WriteLine($"Vibrate for user {playerId}");
-        JSRuntime.InvokeVoidAsync("window.vibrate");
+        JSRuntime.InvokeVoidAsync("window.vibrate", playerId);
     }
     
     [JSInvokable]

@@ -1,5 +1,6 @@
 var gameReady = false;
 var savedDotnet = null;
+var playerId;
 window.onresize = function () {
   console.log("resize");
 
@@ -9,8 +10,10 @@ window.onresize = function () {
   //canvas.height = window.innerHeight;
 }
 
-window.vibrate = function() {
-  navigator.vibrate(200);
+window.vibrate = function(id) {
+  if (playerId == id) {
+    navigator.vibrate(200);
+  }
 }
 
 window.setReady = function() {
@@ -116,7 +119,7 @@ window.initGame = function (dotNetObject) {
       });
   }
 
-  const playerId = localStorage.getItem("playerid");
+  playerId = localStorage.getItem("playerid");
   if (!playerId) {
     dotNetObject.invokeMethodAsync('getPlayerId')
       .then(data => {
