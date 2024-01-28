@@ -111,3 +111,7 @@ a, .btn-link {
     color: #fff;
 }
 
+.splash-overlay button.waiting {
+    filter: grayscale(100%);
+}
+
