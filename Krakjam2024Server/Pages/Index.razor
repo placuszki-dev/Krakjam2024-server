@@ -38,7 +38,13 @@
         {
             ObjectReference = DotNetObjectReference.Create(this);
             JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
+            GameplayService.EndGameReceived += OnEndGameReceived;
         }
+    }
+
+    private void OnEndGameReceived(UserInfo obj)
+    {
+        // TODO: Szymon tu wywołaj od nowa gre
     }
 
     [JSInvokable]
