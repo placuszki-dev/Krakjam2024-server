@@ -58,9 +58,9 @@
         JSRuntime.InvokeVoidAsync("window.setReady");
     }
 
-
     private void VibratePhone(string playerId, float force)
     {
+        Log($"Score for player: {playerId}");
         JSRuntime.InvokeVoidAsync("window.vibrate", playerId);
     }
     
@@ -124,7 +124,7 @@
 
     private void Log(string msg)
     {
-        string timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
-        Console.WriteLine($"{timestamp}: {msg}");
+        string dateTimeTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        Console.WriteLine($"{dateTimeTimestamp}: {msg}");
     }
 }
