@@ -10,6 +10,7 @@ namespace Placuszki.Krakjam2024.Server
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddScoped<SessionService>();
+            builder.Services.AddScoped<FileReader>();
             builder.Services.AddSingleton<GameplayService>();
 
             var app = builder.Build();
