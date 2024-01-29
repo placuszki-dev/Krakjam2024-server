@@ -6,17 +6,13 @@
         <button @onclick="ReadFile">Read File</button>
     </div>
     <div class="row">
-        @if(outputText != null)
+        @if (outputText != null)
         {
-        @foreach (var line in outputText.Split('\n'))
-        {
-            @line
-            <br/>
-        }
+            <pre>@outputText</pre>
         }
         else
         {
-        <p>Click button</p>
+            <p>Click button</p>
         }
     </div>
 </div>
