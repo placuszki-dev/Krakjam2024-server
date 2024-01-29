@@ -1,13 +1,23 @@
 ﻿@page "/logs"
-
 @inject FileReader FileReader
 
-<h3>Read Output from File</h3>
-
-<button @onclick="ReadFile">Read File</button>
-
-<div>
-    @outputText
+<div class="container">
+    <div class="row">
+        <button @onclick="ReadFile">Read File</button>
+    </div>
+    <div class="row">
+        @if(outputText != null)
+        {
+        @foreach (var line in outputText.Split('\n'))
+        {
+            <p>@line</p>
+        }
+        }
+        else
+        {
+        <p>Click button</p>
+        }
+    </div>
 </div>
 
 @code {
