@@ -34,6 +34,7 @@
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
+        Log("Somebody entered website");
         if (firstRender)
         {
             ObjectReference = DotNetObjectReference.Create(this);
