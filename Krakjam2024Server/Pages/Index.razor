@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿ @page "/"
 @using Placuszki.Krakjam2024.Server
 @inject GameplayService GameplayService
 @inject SessionService SessionService
@@ -61,7 +61,7 @@
 
     private void VibratePhone(string playerId, float force)
     {
-        Log($"Score for player: {playerId}");
+        // Log($"Score for player: {playerId}");
         JSRuntime.InvokeVoidAsync("window.vibrate", playerId);
     }
     
@@ -98,7 +98,7 @@
     [JSInvokable]
     public void sendXY(float x, float y)
     {
-        Log($"Shoot: {x}, {y}");
+        // Log($"Shoot: {x}, {y}");
         float sendX = x;
         float sendY = -y;
 
