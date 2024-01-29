@@ -26,6 +26,8 @@
             PhoneColor = SessionService.getPhoneColor(),
             CheeseType = cheeseType,
         };
+        
+        Log($"User joined to game: {userInfo.PlayerId}, {userInfo.PhoneColor}, {userInfo.CheeseType}");
         GameplayService.SendUserInfoToClients(userInfo);
     }
 
@@ -45,27 +47,26 @@
     // NOTE: winningCheeseType might be 0, when user on PC pressed Escape
     private void OnEndGameReceived(int winningCheeseType)
     {
+        Log("EndGame, winner: " + winningCheeseType);
         JSRuntime.InvokeVoidAsync("window.initGame", ObjectReference);
     }
 
     private void OnMainMenuOpenedOnClient()
     {
-        Console.WriteLine("OnMainMenuOpenedOnClient was called");
+        Log("OnMainMenuOpenedOnClient");
         GameplayService.IsMainMenuOpened = true;
         JSRuntime.InvokeVoidAsync("window.setReady");
     }
-    
+
+
     private void VibratePhone(string playerId, float force)
     {
-        // TODO: vibrate userInfo's phone
-        Console.WriteLine($"Vibrate for user {playerId}");
         JSRuntime.InvokeVoidAsync("window.vibrate", playerId);
     }
     
     [JSInvokable]
     public bool getIsMainMenuOpened()
     {
-        Console.WriteLine($"getIsMainMenuOpened was called {GameplayService.IsMainMenuOpened}");
         return GameplayService.IsMainMenuOpened;
     }
 
@@ -96,6 +97,7 @@
     [JSInvokable]
     public void sendXY(float x, float y)
     {
+        Log($"Shoot: {x}, {y}");
         float sendX = x;
         float sendY = -y;
 
@@ -105,7 +107,7 @@
             X = sendX,
             Y = sendY,
         };
-        Console.WriteLine($"x={sendX}, y={sendY}");
+        Log($"x={sendX}, y={sendY}");
         GameplayService.SendUpdateToClients(dataPacket);
     }
 
@@ -118,5 +120,11 @@
         //Now dispose our object reference so our component can be garbage collected
         ObjectReference.Dispose();
       }
+    }
+
+    private void Log(string msg)
+    {
+        string timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
+        Console.WriteLine($"{timestamp}: {msg}");
     }
 }
