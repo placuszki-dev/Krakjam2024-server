@@ -9,11 +9,9 @@ namespace Placuszki.Krakjam2024.Server
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddHttpContextAccessor(); // to get IP address of connected user
             builder.Services.AddScoped<SessionService>();
             builder.Services.AddScoped<FileReader>();
             builder.Services.AddSingleton<GameplayService>();
-
 
             var app = builder.Build();
 

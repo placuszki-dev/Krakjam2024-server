@@ -3,7 +3,6 @@
 @inject GameplayService GameplayService
 @inject SessionService SessionService
 @inject IJSRuntime JSRuntime
-@inject IHttpContextAccessor HttpContextAccessor
 @implements IDisposable
 
 <div id="game">
@@ -35,7 +34,7 @@
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
-        Log($"Somebody entered website, ip: {GetClientIpAddress()}");
+        Log("Somebody entered website");
         if (firstRender)
         {
             ObjectReference = DotNetObjectReference.Create(this);
@@ -124,16 +123,6 @@
       }
     }
 
-    private string GetClientIpAddress()
-    {
-        if (HttpContextAccessor != null && HttpContextAccessor.HttpContext != null)
-        {
-            var clientIpAddress = HttpContextAccessor.HttpContext.Connection.RemoteIpAddress;
-            return clientIpAddress.ToString();
-        }
-        return "<unknown IP>";
-    }
-    
     private void Log(string msg)
     {
         string dateTimeTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
