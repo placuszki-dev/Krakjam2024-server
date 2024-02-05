@@ -9,11 +9,11 @@ public class GameplayService : BackgroundService
     public event Action<string, float> VibratePhoneReceived;
     
     private readonly ILogger<GameplayService> _logger;
-    private static IHubContext<GameHub, IGameHub> _gameHub;
+    private static IHubContext<GameHub> _gameHub;
 
     public bool IsMainMenuOpened;
     
-    public GameplayService(ILogger<GameplayService> logger, IHubContext<GameHub, IGameHub> gameHub)
+    public GameplayService(ILogger<GameplayService> logger, IHubContext<GameHub> gameHub)
     {
         _logger = logger;
         _gameHub = gameHub;
@@ -27,14 +27,14 @@ public class GameplayService : BackgroundService
 
     public void SendUpdateToClients(DataPacket dataPacket)
     {
-        _gameHub.Clients.All.SendDataPacket(dataPacket);
+        _gameHub.Clients.All.SendAsync("SendDataPacket", dataPacket);
     }
 
     public void SendUserInfoToClients(UserInfo userInfo)
     {
-        _gameHub.Clients.All.SendUserInfo(userInfo);
+        _gameHub.Clients.All.SendAsync("SendUserInfo", userInfo);
     }
-
+    
     public void OnEndGameReceivedFromClient(int winningCheeseType)
     {
         IsMainMenuOpened = false;
