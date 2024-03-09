@@ -1,4 +1,5 @@
 using SignalRGameServerSample.Models;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Placuszki.Krakjam2024.Server
 {
@@ -26,6 +27,14 @@ namespace Placuszki.Krakjam2024.Server
                         .SetIsOriginAllowed((host) => true)
                         .AllowCredentials();
                 }));
+
+            var extensionProvider = new FileExtensionContentTypeProvider();
+            extensionProvider.Mappings[".data"] = "application/octet-stream";
+
+            builder.Services.Configure<StaticFileOptions>(options =>
+            {
+              options.ContentTypeProvider = extensionProvider;
+            });
 
             //-------------
             var app = builder.Build();
