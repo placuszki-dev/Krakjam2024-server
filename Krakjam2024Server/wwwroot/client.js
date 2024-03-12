@@ -9,7 +9,14 @@ window.onresize = function () {
   //canvas.height = window.innerHeight;
 }
 
+var domReady = false;
+
 function handleDomReady() {
+  console.log("dom ready", domReady)
+  if (domReady) {
+    return
+  }
+  domReady = true;
   const buttonJoinGame = document.querySelector(".join-game");
   const buttonHostGame = document.querySelector(".host-game");
   buttonJoinGame.onclick = function (e) {
@@ -22,7 +29,9 @@ function handleDomReady() {
 
 document.addEventListener("DOMContentLoaded", function(event) {
   handleDomReady();
-});
+}); 
+
+handleDomReady();
 
 window.setReady = function() {
   if (gameReady) {
