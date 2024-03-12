@@ -9,6 +9,21 @@ window.onresize = function () {
   //canvas.height = window.innerHeight;
 }
 
+function handleDomReady() {
+  const buttonJoinGame = document.querySelector(".join-game");
+  const buttonHostGame = document.querySelector(".host-game");
+  buttonJoinGame.onclick = function (e) {
+    document.querySelector(".splash-1").remove();
+  };
+  buttonHostGame.onclick = function (e) {
+    window.location.href = "/game/game.html";
+  };
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  handleDomReady();
+});
+
 window.setReady = function() {
   if (gameReady) {
     // that's the case when Esc is push
@@ -51,7 +66,6 @@ window.initGame = function (dotNetObject) {
 
   console.log("INIT GAME");
   const gameDiv = document.getElementById("game");
-  const splashDiv = document.getElementById("splash");
   gameDiv.innerHTML = "";
 
   const overlay = document.querySelector(".splash-overlay");
