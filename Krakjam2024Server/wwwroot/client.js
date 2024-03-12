@@ -9,20 +9,16 @@ window.onresize = function () {
   //canvas.height = window.innerHeight;
 }
 
-var domReady = false;
-
 function handleDomReady() {
   console.log("dom ready", domReady)
-  if (domReady) {
-    return
-  }
-  domReady = true;
   const buttonJoinGame = document.querySelector(".join-game");
   const buttonHostGame = document.querySelector(".host-game");
   buttonJoinGame.onclick = function (e) {
+    console.log("join game button click");
     document.querySelector(".splash-1").remove();
   };
   buttonHostGame.onclick = function (e) {
+    console.log("host game button click");
     window.location.href = "/game/game.html";
   };
 }
