@@ -10,7 +10,6 @@ window.onresize = function () {
 }
 
 function handleDomReady() {
-  console.log("dom ready", domReady)
   const buttonJoinGame = document.querySelector(".join-game");
   const buttonHostGame = document.querySelector(".host-game");
   buttonJoinGame.onclick = function (e) {
@@ -42,6 +41,7 @@ window.setReady = function() {
   buttonCheddar.innerHTML = "Cheddar";
   buttonCheddar.classList.remove('waiting');
   gameReady = true;
+  handleDomReady();
 }
 
 window.initGame = function (dotNetObject) {
@@ -70,6 +70,7 @@ window.initGame = function (dotNetObject) {
   }, 2000);
 
   console.log("INIT GAME");
+  handleDomReady();
   const gameDiv = document.getElementById("game");
   gameDiv.innerHTML = "";
 
